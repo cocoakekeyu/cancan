@@ -1,4 +1,4 @@
-# [cancan] [docs]
+# cancan
 
 ## Introduction
 
@@ -10,24 +10,26 @@
 
 ## Basic Usage
 
-inherit from py.Ability
+inherit from cancan.Ability
 
-use `add` method add user Ability
+use `add` method to add user Ability
 
-`add(self, action=None, subject=None, **conditions)`
-"""
-Add ability are allowed using two arguments.
+```python
+def add(self, action=None, subject=None, **conditions)`
+    """
+    Add ability are allowed using two arguments.
 
-The first one is the action you're setting the permission for,
-the second one is the class of object you're setting it on.
-the third one is the subject's attributes must be matches or a function
-to be test.
+    The first one is the action you're setting the permission for,
+    the second one is the class of object you're setting it on.
+    the third one is the subject's attributes must be matches or a function
+    to be test.
 
-self.add('update', Article)
-self.add('update', Article, user_id=1)
-self.add('update', Article, user_id=1, title='hello')
-self.add('update', Article, function=test_title)
-"""
+    self.add('update', Article)
+    self.add('update', Article, user_id=1)
+    self.add('update', Article, user_id=1, title='hello')
+    self.add('update', Article, function=test_title)
+    """
+```
 
 ```python
 import cancan
