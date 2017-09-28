@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import unittest
 
-from cancan.ability import Ability
+from .ability import Ability
 
 
 class TestAbility(unittest.TestCase):
