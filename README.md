@@ -96,6 +96,8 @@ import cancan
 def test_title_gt_100(article):
     return len(article.title) > 100
 
+def anoter_test(article, id, len_title):
+    return article.user_id < id and len(article.title) > len_article
 
 class Ability(cancan.Ability):
     def __init__(self, user):
@@ -107,9 +109,9 @@ class Ability(cancan.Ability):
         elif user.role == 'editor':
             self.add('cru', Article)
             self.add(['read', 'create'], 'gem')
-            self.add('delete', Article, function=test_title_gt_100)
+            self.add('update', Article, function=test_title_gt_100)
+            self.add('delete', Article, function=another_test, func_args=(10,), func_kwargs={"len_title": 4})
         else:
-            self.add('read', Article)
             self.add('create', Article)
             self.add('update', Article, user_id=user.id)
             self.add('create', 'bbb')
@@ -125,7 +127,8 @@ ability3.can('read', 'gem')  # True
 ability3.can('create', 'gem')  # True
 
 article = Article('world', 1)
-ability3.can('delete', article)  # False
+ability3.can('update', article)  # False
+ability3.can('delete', article)  # True
 
 article = Article('world'*100, 1)
 ability3.can('delete', article)  # True
