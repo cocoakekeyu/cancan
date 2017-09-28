@@ -83,6 +83,23 @@ class TestAbility(unittest.TestCase):
         article = Article('hello', 15)
         self.assertFalse(a.can('update', article))
 
+    def test_fuction_with_args(self):
+        class Article(object):
+            def __init__(self, title, user_id):
+                self.title = title
+                self.user_id = user_id
+
+        def test(subject, id, len_title):
+            return subject.user_id < id and len(subject.title) > len_title
+
+        a = Ability()
+        article = Article('hello', 1)
+        a.add('update', Article, function=test, func_args=(10,), func_kwargs={'len_title': 2})
+        self.assertTrue(a.can('update', article))
+
+        article = Article('hello', 15)
+        self.assertFalse(a.can('update', article))
+
 
 if __name__ == '__main__':
     unittest.main()

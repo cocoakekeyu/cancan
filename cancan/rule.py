@@ -30,6 +30,11 @@ class Rule(object):
         self.subjects = listify(subject)
         self.conditions = conditions
         self.function = self.conditions.pop('function', None)
+        self.func_args = self.conditions.pop('func_args', ())
+        self.func_kwargs = self.conditions.pop('func_kwargs', {})
+
+        assert isinstance(self.func_args, tuple), 'func_args must be a tuple'
+        assert isinstance(self.func_kwargs, dict), 'func_kwargs must be a dict'
 
     def __str__(self):
         return 'Rule:{}{}'.format(self.actions, self.subjects)
@@ -77,7 +82,9 @@ class Rule(object):
                    for key, value in self.conditions.items())
 
     def matches_function(self, action, subject):
-        return self.function(subject)
+        args = self.func_args
+        kwargs = self.func_kwargs
+        return self.function(subject, *args, **kwargs)
 
     @property
     def expanded_actions(self):
