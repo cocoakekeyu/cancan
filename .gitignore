@@ -5,3 +5,5 @@ db.sqlite3
 build/
 dist/
 *.egg-info
+.cache
+.tox
