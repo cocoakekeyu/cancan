@@ -95,4 +95,4 @@ class Rule(object):
 
     @expanded_actions.setter
     def expanded_actions(self, value):
-        self._expaned_action = value
+        self._expaned_actions = value
